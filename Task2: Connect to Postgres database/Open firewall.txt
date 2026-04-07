@@ -1,0 +1,13 @@
+Open Firewall Port 5432  
+Firewalls often block PostgreSQL connections by default, especially for remote access, which is a common cause of "connection refused" errors
+. To permit these connections, you must explicitly open port 5432, the standard port for PostgreSQL traffic
+. On systems using firewalld, use the following commands to add a permanent rule for the TCP port and reload the configuration
+.
+# Add a permanent rule to allow traffic on port 5432/tcp
+sudo firewall-cmd --permanent --add-port=5432/tcp
+
+# Reload the firewall to apply the changes
+sudo firewall-cmd --reload
+
+# Verify that the port is now open in the active configuration
+sudo firewall-cmd --list-ports
