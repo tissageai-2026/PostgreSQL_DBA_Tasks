@@ -91,6 +91,28 @@ The following table compares the partitioning architectures of PostgreSQL (based
 
 
 
+## Index impact when attaching or Detaching a partition:
+
+When attaching or detaching a partition in PostgreSQL, indexes play a critical role in both the performance of the operation and the subsequent efficiency of queries. The impact varies depending on whether you are incorporating a table into a partitioned structure or removing it.
+
+1. Attaching a Partition
+
+When you use `ALTER TABLE ... ATTACH PARTITION`, the system incorporates an existing table into the partitioned structure. The impact on indexes includes:
+
+- **Requirement for Matching Indexes:** For a table to be attached successfully, it must have indexes that match those defined on the parent (partitioned) table. If the parent table has a unique index, the table being attached must also have a matching unique index to ensure data integrity across the entire set.
+
+- **Automatic Inheritance:** PostgreSQL 10 and later use declarative partitioning, where indexes created on the parent table are automatically "inherited" by new partitions. If a matching index does not exist on the table being attached, **PostgreSQL may need to create it during the attachment process**, which can lead to extended locks on the parent table.
+
+- **Optimization of Constraints:** Attaching a partition involves verifying that the existing data fits the partition's range or list constraints. Having existing indexes on the partition key can speed up this verification process.
+2. Detaching a Partition
+
+When you use `ALTER TABLE ... DETACH PARTITION`, the partition is removed from the parent table and becomes a standalone, independent table.
+
+- **Retention of Data and Indexes:** The detached table retains all its data and any indexes that were specifically created on it. It is no longer governed by the parent table’s indexing or partitioning logic.
+- **Independence from Global-Like Indexes:** Once detached, the table is no longer part of the logical "whole." Queries against the parent table will no longer scan the detached table's indexes, and the detached table's indexes will no longer need to maintain parity with the parent's structural changes.
+
+
+
 ## Example:
 
 ### create a parent partitioning table sales_orders
