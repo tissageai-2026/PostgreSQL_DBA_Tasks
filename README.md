@@ -10,3 +10,15 @@ A hands-on guide to learning PostgreSQL through the lens of an Oracle DBA. This 
 **Task4** Understand schema and user/role  
 **Task5** Create a tablespace and a table  
 **Task6** Backup and restore  
+
+**Task7** Managing PostgreSQL Extensions
+
+**Task8** Database Maintenance & Table Health
+
+**Task9** Table partitioning
+
+**Task10** Data Protection Encryption and Compression
+
+**Task11** Minor Version Patching
+
+**Task12** Configure a physical standby

@@ -56,8 +56,6 @@ Instead of the general update command, provide the package name followed by the 
 
 *Note: If the version is already installed or if you are moving "backwards" from a higher version, you may need to use* *dnf downgrade**, though this is generally avoided in production unless resolving a specific regression.*
 
-
-
 6. Best Practices
 - **Read Release Notes:** Always review the release notes for the specific minor version to see if any specific bug fixes affect your workload.
 - **Backup First:** Even though minor upgrades are low-risk, it is a DBA best practice to **perform a full backup** (physical or logical) before any maintenance operation.
